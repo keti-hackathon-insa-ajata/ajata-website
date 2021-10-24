@@ -22,6 +22,16 @@
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+        "prettier/prettier": [
+            "error",
+            {
+              "quoteProps": "consistent",
+              "singleQuote": true,
+              "tabWidth": 2,
+              "trailingComma": "es5",
+              "useTabs": false
+            }
+          ]
     }
 }
