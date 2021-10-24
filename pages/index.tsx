@@ -1,6 +1,13 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import dynamic from 'next/dynamic';
+
+// Map must be imported as dynamic component with no server-side rendering
+const Map = dynamic(() => import('../components/map'), {
+  loading: () => <p>A map is loading</p>,
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -50,6 +57,12 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <Map
+          style={{
+            height: 400,
+            width: '100%',
+          }}
+        />
       </main>
 
       <footer className={styles.footer}>
