@@ -7,7 +7,6 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { ApiResponse } from '../types/api';
-import Button from '@mui/material/Button';
 
 // Images are copied from node_modules/leaflet/dist/images to public/leaflet_images
 import Leaflet from 'leaflet';
@@ -44,14 +43,18 @@ export default function Map(props: Props) {
                 position={[m.coordinates[0], m.coordinates[1]]}
               >
                 <Popup>
-                  Date : {m.timestamp}
-                  {'\n'}
-                  Distance : {m.distance}
-                  {'\n'}
-                  Vitesse de l objet : {m.object_speed}
-                  {'\n'}
-                  Vitesse du vélo : {m.bicycle_speed}
-                  <Button variant="contained">Hello World</Button>
+                  <p>
+                    <strong>Date:</strong> {m.timestamp}
+                  </p>
+                  <p>
+                    <strong>Distance:</strong> {m.distance}
+                  </p>
+                  <p>
+                    <strong>Object speed:</strong> {m.object_speed}
+                  </p>
+                  <p>
+                    <strong>Bike speed:</strong> {m.bicycle_speed}
+                  </p>
                 </Popup>
               </Marker>
             );
