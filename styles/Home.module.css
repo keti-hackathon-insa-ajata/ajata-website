@@ -8,15 +8,3 @@
 .main {
   flex: 1;
 }
-
-.footer {
-}
-
-.drawerFooter {
-  display: flex;
-}
-
-.drawerBack {
-  margin: auto 0 auto auto;
-  margin-right: 20px;
-}
