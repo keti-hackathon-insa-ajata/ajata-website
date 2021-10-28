@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+// From https://github.com/mui-org/material-ui/blob/2fa90aa0918f5b7903de4c8b80f6771f926d0343/examples/nextjs-with-typescript/src/Link.tsx
 import * as React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
