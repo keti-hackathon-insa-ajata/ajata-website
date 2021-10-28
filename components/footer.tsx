@@ -14,6 +14,7 @@ import { NextLinkComposed } from '../components/Link';
 type Props = {
   onMenuClick: () => void;
   onLegendClick: () => void;
+  showLegend: boolean;
 };
 
 export default function Footer(props: Props) {
@@ -50,10 +51,12 @@ export default function Footer(props: Props) {
             ))}
           </Box>
           <div style={{ flexGrow: 1 }} />
-          <Button color="inherit" onClick={props.onLegendClick}>
-            <ChevronLeftIcon />
-            Legend
-          </Button>
+          {props.showLegend ? (
+            <Button color="inherit" onClick={props.onLegendClick}>
+              <ChevronLeftIcon />
+              Legend
+            </Button>
+          ) : null}
         </Toolbar>
       </AppBar>
     </footer>
