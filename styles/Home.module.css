@@ -1,9 +1,20 @@
 .container {
-}
-
-.main {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100hh;
 }
 
+.main {
+  flex: 1;
+}
+
+.drawerFooter {
+  min-height: 64px;
+  display: flex;
+}
+
+.drawerBack {
+  margin: auto 0 auto auto;
+  margin-right: 20px;
+}

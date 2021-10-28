@@ -4,9 +4,22 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { green } from '@mui/material/colors';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+function App({ Component, pageProps }: AppProps) {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: green[900],
+      },
+    },
+  });
+  return (
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
 
-export default MyApp;
+export default App;

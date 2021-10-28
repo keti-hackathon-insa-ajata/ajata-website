@@ -1,21 +1,11 @@
 .container {
-  width: 500px;
-  height: 100vh;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1000;
-  background-color: #fff;
-  display: flex;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
 }
 
 .frame {
   height: 100%;
+  width: 100%;
   border: none;
-}
-
-.button {
-  background-color: ##00ff00;
-  height: 100%;
-  width: 50px;
 }
