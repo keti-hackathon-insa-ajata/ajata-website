@@ -1,16 +1,18 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100hh;
+  height: 100vh;
 }
 
 .main {
   flex: 1;
 }
 
+.footer {
+}
+
 .drawerFooter {
-  min-height: 64px;
   display: flex;
 }
 

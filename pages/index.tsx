@@ -68,12 +68,12 @@ export default function Home() {
             className={styles.drawerFooter}
             style={{
               backgroundColor: theme.palette.grey[200],
-              padding: theme.spacing(0, 1),
+              padding: theme.spacing(1, 1),
             }}
           >
             <Button
               className={styles.drawerBack}
-              color="inherit"
+              color={'inherit'}
               onClick={() => setLegendOpen(false)}
             >
               Close
@@ -82,9 +82,9 @@ export default function Home() {
           </div>
         </Drawer>
       </main>
-      <footer>
+      <footer className={styles.footer}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar variant="dense">
             <IconButton
               size="large"
               edge="end"
