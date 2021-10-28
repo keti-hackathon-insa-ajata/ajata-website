@@ -6,6 +6,8 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { green } from '@mui/material/colors';
+import React from 'react';
+import Layout from '../components/layout';
 
 function App({ Component, pageProps }: AppProps) {
   const theme = createTheme({
@@ -17,7 +19,9 @@ function App({ Component, pageProps }: AppProps) {
   });
   return (
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   );
 }

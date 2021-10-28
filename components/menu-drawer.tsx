@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { MENU_ITEMS } from '../constants/routes';
 import styles from '../styles/MenuDrawer.module.css';
+import { NextLinkComposed } from '../components/Link';
 
 type Props = {
   open: boolean;
@@ -21,7 +22,11 @@ export default function MenuDrawer(props: Props) {
           <ListItem
             key={item.id}
             button={true}
-            onClick={() => console.log(item.route)}
+            onClick={props.onClose}
+            component={NextLinkComposed}
+            to={{
+              pathname: item.route,
+            }}
           >
             <ListItemIcon>
               <item.icon sx={{ mr: 1 }} />

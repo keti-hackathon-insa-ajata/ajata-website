@@ -1,12 +1,8 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 import Loading from '../components/loading';
 import useSWR from 'swr';
-import { useState } from 'react';
-import Footer from '../components/footer';
-import LegendDrawer from '../components/legend-drawer';
-import MenuDrawer from '../components/menu-drawer';
+import styles from '../styles/Home.module.css';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -21,8 +17,6 @@ const Map = dynamic(() => import('../components/map'), {
 
 export default function Home() {
   const { data, error } = useSWR(ENDPOINT, fetcher);
-  const [legendOpen, setLegendOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   console.log(data);
   console.log(error);
 
@@ -36,20 +30,12 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <Map
-          markers={data}
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
-        />
-        <LegendDrawer open={legendOpen} onClose={() => setLegendOpen(false)} />
-        <MenuDrawer open={menuOpen} onClose={() => setMenuOpen(false)} />
-      </main>
-      <Footer
-        onMenuClick={() => setMenuOpen(!menuOpen)}
-        onLegendClick={() => setLegendOpen(!legendOpen)}
+      <Map
+        markers={data}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
       />
     </div>
   );

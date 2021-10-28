@@ -9,6 +9,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { MENU_ITEMS } from '../constants/routes';
+import { NextLinkComposed } from '../components/Link';
 
 type Props = {
   onMenuClick: () => void;
@@ -38,7 +39,10 @@ export default function Footer(props: Props) {
               <Button
                 key={item.id}
                 color="inherit"
-                onClick={() => console.log(item.route)}
+                component={NextLinkComposed}
+                to={{
+                  pathname: item.route,
+                }}
               >
                 <item.icon sx={{ mr: 1 }} />
                 {item.text}
