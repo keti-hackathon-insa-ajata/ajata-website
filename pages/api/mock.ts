@@ -8,8 +8,8 @@ export default (_req: NextApiRequest, res: NextApiResponse<ApiResponse>) => {
       distance: 20,
       object_speed: 10,
       bicycle_speed: 30,
-      longitude: 43.6,
-      latitude: 1.44,
+      latitude: 43.6,
+      longitude: 1.44,
     },
   ]);
 };

@@ -3,9 +3,11 @@ import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 import Loading from '../components/loading';
 import useSWR from 'swr';
-import Legend from '../components/legend';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+// const ENDPOINT = 'http://192.168.43.129:12345/dangerReports';
+const ENDPOINT = 'api/mock';
 
 // Map must be imported as dynamic component with no server-side rendering
 const Map = dynamic(() => import('../components/map'), {
@@ -14,10 +16,7 @@ const Map = dynamic(() => import('../components/map'), {
 });
 
 export default function Home() {
-  const { data, error } = useSWR(
-    'http://192.168.43.129:12345/dangerReports',
-    fetcher
-  );
+  const { data, error } = useSWR(ENDPOINT, fetcher);
   console.log(data);
   console.log(error);
   return (
