@@ -3,21 +3,10 @@ import styles from '../styles/Home.module.css';
 import dynamic from 'next/dynamic';
 import Loading from '../components/loading';
 import useSWR from 'swr';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-  Typography,
-  Drawer,
-  Divider,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-import Legend from '../components/legend';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useTheme } from '@mui/material/styles';
+import Footer from '../components/footer';
+import LegendDrawer from '../components/legend-drawer';
+import MenuDrawer from '../components/menu-drawer';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -33,10 +22,9 @@ const Map = dynamic(() => import('../components/map'), {
 export default function Home() {
   const { data, error } = useSWR(ENDPOINT, fetcher);
   const [legendOpen, setLegendOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   console.log(data);
   console.log(error);
-
-  const theme = useTheme();
 
   return (
     <div className={styles.container}>
@@ -56,54 +44,13 @@ export default function Home() {
             width: '100%',
           }}
         />
-        <Drawer
-          anchor={'right'}
-          open={legendOpen}
-          variant={'persistent'}
-          onClose={() => setLegendOpen(false)}
-        >
-          <Legend />
-          <Divider />
-          <div
-            className={styles.drawerFooter}
-            style={{
-              backgroundColor: theme.palette.grey[200],
-              padding: theme.spacing(0, 1),
-            }}
-          >
-            <Button
-              className={styles.drawerBack}
-              color="inherit"
-              onClick={() => setLegendOpen(false)}
-            >
-              Close
-              <ChevronRightIcon />
-            </Button>
-          </div>
-        </Drawer>
+        <LegendDrawer open={legendOpen} onClose={() => setLegendOpen(false)} />
+        <MenuDrawer open={menuOpen} onClose={() => setMenuOpen(false)} />
       </main>
-      <footer>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Safe city for bicycles
-            </Typography>
-            <Button color="inherit" onClick={() => setLegendOpen(!legendOpen)}>
-              <ChevronLeftIcon />
-              Legend
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </footer>
+      <Footer
+        onMenuClick={() => setMenuOpen(!menuOpen)}
+        onLegendClick={() => setLegendOpen(!legendOpen)}
+      />
     </div>
   );
 }
