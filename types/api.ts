@@ -5,5 +5,6 @@ export type InformationNode = {
   distance: number;
   object_speed: number;
   bicycle_speed: number;
-  coordinates: [number, number];
+  latitude: number;
+  longitude: number;
 };

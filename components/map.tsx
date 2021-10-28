@@ -7,6 +7,7 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { ApiResponse } from '../types/api';
+import Legend from './legend';
 
 // Images are copied from node_modules/leaflet/dist/images to public/leaflet_images
 import Leaflet from 'leaflet';
@@ -34,13 +35,14 @@ export default function Map(props: Props) {
         attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
       />
+      <Legend />
       {props.markers
         ? props.markers.map((m, index) => {
             console.log(m);
             return (
               <Marker
                 key={'marker' + index}
-                position={[m.coordinates[0], m.coordinates[1]]}
+                position={[m.latitude, m.longitude]}
               >
                 <Popup>
                   <p>
