@@ -36,7 +36,7 @@ export default function Map(props: Props) {
         attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
       />
-      <Routing />
+      {/* <Routing /> */}
 
       {props.markers
         ? props.markers.map((m, index) => {
