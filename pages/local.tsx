@@ -5,8 +5,7 @@ import Map from '../components/dynamic-map';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-// const ENDPOINT = 'http://192.168.43.129:12345/dangerReports';
-const ENDPOINT = 'api/mock';
+const ENDPOINT = 'api/markers';
 
 export default function Home() {
   const { data, error } = useSWR(ENDPOINT, fetcher);
@@ -16,7 +15,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Safe City for Cyclists</title>
+        <title>Safe City for Cyclists - Local</title>
         <meta
           name="description"
           content="Website to help find dangerous for cyclists"

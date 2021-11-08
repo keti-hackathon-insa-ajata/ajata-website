@@ -13,21 +13,21 @@ export default function Layout(props: Props) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [legendOpen, setLegendOpen] = useState(false);
-  const isRoot = router.pathname === '/';
+  const isMapShown = router.pathname === '/' || router.pathname === '/local';
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         {props.children}
         <MenuDrawer open={menuOpen} onClose={() => setMenuOpen(false)} />
         <LegendDrawer
-          open={legendOpen && isRoot && !menuOpen}
+          open={legendOpen && isMapShown && !menuOpen}
           onClose={() => setLegendOpen(false)}
         />
       </main>
       <Footer
         onMenuClick={() => setMenuOpen(!menuOpen)}
         onLegendClick={() => setLegendOpen(!legendOpen)}
-        showLegend={isRoot}
+        showLegend={isMapShown}
       />
     </div>
   );

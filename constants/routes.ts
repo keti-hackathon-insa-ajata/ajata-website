@@ -18,16 +18,10 @@ export const MENU_ITEMS: Array<{
     route: '/',
   },
   {
-    id: 'about',
-    text: 'About',
+    id: 'local',
+    text: 'Local',
     icon: InfoIcon,
-    route: 'about',
-  },
-  {
-    id: 'contact',
-    text: 'Contact',
-    icon: MailIcon,
-    route: 'contact',
+    route: 'local',
   },
   {
     id: 'github',

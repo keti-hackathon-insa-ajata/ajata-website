@@ -30,7 +30,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       if (!body) {
         res.status(400).end('No data provided');
       } else {
-        console.log(body);
         if (isDataValid(body)) {
           body.forEach((d) => {
             mysql.query(
@@ -45,7 +44,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
               ]
             );
           });
-          res.status(200);
+          res.status(200).end('success');
         } else {
           res.status(400).end('Data provided invalid');
         }
