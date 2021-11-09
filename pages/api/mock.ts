@@ -10,6 +10,7 @@ export default (_req: NextApiRequest, res: NextApiResponse<DangerReports>) => {
       bicycle_speed: 30,
       latitude: 43.6,
       longitude: 1.44,
+      // id: 0
     },
   ]);
 };

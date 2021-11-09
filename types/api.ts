@@ -11,5 +11,6 @@ export type InformationNode = {
 };
 
 export type LocalInformationNode = InformationNode & {
+  id: number;
   sync: boolean;
 };
