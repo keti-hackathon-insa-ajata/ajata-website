@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { MENU_ITEMS } from '../constants/routes';
 import { NextLinkComposed } from '../components/Link';
+import { useRouter } from 'next/router';
 
 type Props = {
   onMenuClick: () => void;
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export default function Footer(props: Props) {
+  const router = useRouter();
   return (
     <footer>
       <AppBar position="static">
@@ -39,8 +41,9 @@ export default function Footer(props: Props) {
             {MENU_ITEMS.map((item) => (
               <Button
                 key={item.id}
-                color="inherit"
+                color={'inherit'}
                 component={NextLinkComposed}
+                variant={router.pathname === item.route ? 'outlined' : 'text'}
                 to={{
                   pathname: item.route,
                 }}

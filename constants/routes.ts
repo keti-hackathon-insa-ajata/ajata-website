@@ -21,7 +21,7 @@ export const MENU_ITEMS: Array<{
     id: 'local',
     text: 'Local',
     icon: InfoIcon,
-    route: 'local',
+    route: '/local',
   },
   {
     id: 'github',
