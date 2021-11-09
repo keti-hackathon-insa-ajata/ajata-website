@@ -24,6 +24,7 @@ export default function Home() {
       </Head>
       <Map
         markers={data}
+        local={true}
         style={{
           height: '100%',
           width: '100%',

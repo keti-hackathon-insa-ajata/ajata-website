@@ -10,6 +10,7 @@ import { ApiResponse } from '../types/api';
 
 // Images are copied from node_modules/leaflet/dist/images to public/leaflet_images
 import L from 'leaflet';
+import MarkerPopup from './marker-popup';
 L.Icon.Default.imagePath = 'leaflet_images/';
 
 // Blue icon for unsynced reports
@@ -34,6 +35,7 @@ const blueIcon = new L.Icon({
 
 type Props = MapContainerProps & {
   markers?: ApiResponse;
+  local?: boolean;
 };
 
 /**
@@ -63,20 +65,7 @@ export default function Map(props: Props) {
                 position={[m.latitude, m.longitude]}
                 icon={m.sync ? redIcon : blueIcon}
               >
-                <Popup>
-                  <p>
-                    <strong>Date:</strong> {m.timestamp}
-                  </p>
-                  <p>
-                    <strong>Distance:</strong> {m.distance}
-                  </p>
-                  <p>
-                    <strong>Object speed:</strong> {m.object_speed}
-                  </p>
-                  <p>
-                    <strong>Bike speed:</strong> {m.bicycle_speed}
-                  </p>
-                </Popup>
+                <MarkerPopup item={m} local={props.local} />
               </Marker>
             );
           })
