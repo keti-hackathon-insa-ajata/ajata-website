@@ -22,11 +22,17 @@ function isDataValid(data: unknown): data is ApiResponse {
   );
 }
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  const { method } = req;
+function isDeleteDataValid(data: unknown): data is Array<number> {
+  return (
+    Array.isArray(data) &&
+    (data as Array<number>).every((i) => typeof i === 'number')
+  );
+}
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const { method, body } = req;
   switch (method) {
     case 'POST':
-      const { body } = req;
       if (!body) {
         res.status(400).end('No data provided');
       } else {
@@ -51,9 +57,18 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       }
       break;
     case 'GET':
-      mysql.query('SELECT * FROM markers').then((result) => {
-        res.status(200).json(result);
-      });
+      const result = await mysql.query('SELECT * FROM markers');
+      res.status(200).json(result);
+      break;
+    case 'DELETE':
+      if (isDeleteDataValid(body)) {
+        body.forEach((id) => {
+          mysql.query('DELETE FROM markers WHERE id = ?', [id]);
+        });
+        res.status(200).end('success');
+      } else {
+        res.status(400).end('Data provided invalid');
+      }
       break;
     default:
       res.setHeader('Allow', ['POST']);
