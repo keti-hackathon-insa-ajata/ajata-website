@@ -13,9 +13,9 @@ const blueIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-// Red icon for synced reports
-const redIcon = new L.Icon({
-  iconUrl: 'leaflet_images/marker-icon.png',
+// Orange icon for synced reports
+const orangeIcon = new L.Icon({
+  iconUrl: 'leaflet_images/marker-icon-orange.png',
   shadowUrl: 'leaflet_images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -34,7 +34,7 @@ export function LocalMarker(props: Props) {
     <Marker
       key={props.key}
       position={[item.latitude, item.longitude]}
-      icon={item.sync ? redIcon : blueIcon}
+      icon={item.sync ? orangeIcon : blueIcon}
     >
       <MarkerPopup item={item} local={true} />
     </Marker>
