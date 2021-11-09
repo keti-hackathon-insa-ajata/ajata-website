@@ -9,6 +9,7 @@ import styles from '../styles/Map.module.css';
 
 // Images are copied from node_modules/leaflet/dist/images to public/leaflet_images
 import L from 'leaflet';
+import Links from '../constants/links';
 L.Icon.Default.imagePath = 'leaflet_images/';
 
 type Props = MapContainerProps &
@@ -51,8 +52,40 @@ export default function Map(props: Props) {
           aria-label={'upload'}
           variant={'extended'}
           className={styles.fab}
-          onClick={() => {
-            console.log('coucou');
+          onClick={async () => {
+            for (const marker of props.markers) {
+              delete marker.id;
+              // POST to OM2M
+              const body =
+                '{"m2m:cin":{"cnf":"application/json","con":"' +
+                JSON.stringify(marker).replaceAll('"', '\\"') +
+                '"}}';
+              const response = await fetch(Links.om2mEndpoint, {
+                method: 'POST',
+                headers: {
+                  'X-M2M-Origin': 'admin:admin',
+                  'Content-Type': 'application/json;ty=4',
+                },
+                body: body,
+              });
+              if (!response.ok) {
+                console.log('Could not sync marker: ' + JSON.stringify(marker));
+              } else {
+                // TODO Change sync column
+                marker.sync = true;
+                const response = await fetch(Links.localMarkers, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(marker),
+                });
+                if (!response.ok) {
+                  console.log(
+                    'Could not change sync boolean of marker: ' +
+                      JSON.stringify(marker)
+                  );
+                }
+              }
+            }
           }}
         >
           <UploadIcon sx={{ mr: 1 }} />
