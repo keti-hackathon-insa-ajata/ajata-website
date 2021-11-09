@@ -3,6 +3,9 @@ import 'leaflet/dist/leaflet.css';
 import { DangerReports, LocalDangerReports } from '../types/api';
 import { LiveMarker } from './live-marker';
 import { LocalMarker } from './local-marker';
+import { Fab } from '@mui/material';
+import UploadIcon from '@mui/icons-material/Upload';
+import styles from '../styles/Map.module.css';
 
 // Images are copied from node_modules/leaflet/dist/images to public/leaflet_images
 import L from 'leaflet';
@@ -42,6 +45,20 @@ export default function Map(props: Props) {
             <LocalMarker key={'localMarker' + index} item={item} />
           ))
         : null}
+      {props.local ? (
+        <Fab
+          color={'secondary'}
+          aria-label={'upload'}
+          variant={'extended'}
+          className={styles.fab}
+          onClick={() => {
+            console.log('coucou');
+          }}
+        >
+          <UploadIcon sx={{ mr: 1 }} />
+          Upload your reports
+        </Fab>
+      ) : null}
       {props.markers && props.local === false
         ? props.markers.map((item, index) => (
             <LiveMarker key={'liveMarker' + index} item={item} />
