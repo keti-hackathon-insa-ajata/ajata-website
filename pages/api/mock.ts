@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { ApiResponse } from '../../types/api';
+import type { DangerReports } from '../../types/api';
 
-export default (_req: NextApiRequest, res: NextApiResponse<ApiResponse>) => {
+export default (_req: NextApiRequest, res: NextApiResponse<DangerReports>) => {
   res.status(200).json([
     {
       timestamp: 123456789,

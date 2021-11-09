@@ -2,13 +2,11 @@ import Head from 'next/head';
 import useSWR from 'swr';
 import styles from '../styles/Home.module.css';
 import Map from '../components/dynamic-map';
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-const ENDPOINT = 'api/markers';
+import { fetcher } from '../util/requests';
+import Links from '../constants/links';
 
 export default function Home() {
-  const { data, error } = useSWR(ENDPOINT, fetcher);
+  const { data, error } = useSWR(Links.localMarkers, fetcher);
   console.log(data);
   console.log(error);
 

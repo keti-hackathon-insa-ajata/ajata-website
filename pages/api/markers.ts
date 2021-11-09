@@ -1,16 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../constants/db';
-import { ApiResponse } from '../../types/api';
+import { DangerReports } from '../../types/api';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mysql = require('serverless-mysql')({
   config: db,
 });
 
-function isDataValid(data: unknown): data is ApiResponse {
+function isDataValid(data: unknown): data is DangerReports {
   return (
     Array.isArray(data) &&
-    (data as ApiResponse).every(
+    (data as DangerReports).every(
       (i) =>
         i.timestamp != undefined &&
         i.object_speed != undefined &&

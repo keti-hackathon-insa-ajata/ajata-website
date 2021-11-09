@@ -2,14 +2,11 @@ import Head from 'next/head';
 import useSWR from 'swr';
 import styles from '../styles/Home.module.css';
 import Map from '../components/dynamic-map';
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-// const ENDPOINT = 'http://192.168.43.129:12345/dangerReports';
-const ENDPOINT = 'api/mock';
+import { fetcher } from '../util/requests';
+import Links from '../constants/links';
 
 export default function Home() {
-  const { data, error } = useSWR(ENDPOINT, fetcher);
+  const { data, error } = useSWR(Links.liveReports, fetcher);
   console.log(data);
   console.log(error);
 

@@ -1,4 +1,5 @@
-export type ApiResponse = Array<InformationNode>;
+export type DangerReports = Array<InformationNode>;
+export type LocalDangerReports = Array<LocalInformationNode>;
 
 export type InformationNode = {
   timestamp: number;
@@ -7,5 +8,8 @@ export type InformationNode = {
   bicycle_speed: number;
   latitude: number;
   longitude: number;
+};
+
+export type LocalInformationNode = InformationNode & {
   sync: boolean;
 };
