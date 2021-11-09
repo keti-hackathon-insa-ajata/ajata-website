@@ -11,7 +11,16 @@ import { ApiResponse } from '../types/api';
 // Images are copied from node_modules/leaflet/dist/images to public/leaflet_images
 import L from 'leaflet';
 L.Icon.Default.imagePath = 'leaflet_images/';
-import Routing from './routing';
+
+// Blue icon for unsynced reports
+const blueIcon = new L.Icon({
+  iconUrl: 'leaflet_images/marker-icon-blue.png',
+  shadowUrl: 'leaflet_images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 type Props = MapContainerProps & {
   markers?: ApiResponse;
@@ -36,8 +45,6 @@ export default function Map(props: Props) {
         attribution='<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
       />
-      {/* <Routing /> */}
-
       {props.markers
         ? props.markers.map((m, index) => {
             console.log(m);
@@ -45,6 +52,7 @@ export default function Map(props: Props) {
               <Marker
                 key={'marker' + index}
                 position={[m.latitude, m.longitude]}
+                icon={m.sync ? undefined : blueIcon}
               >
                 <Popup>
                   <p>

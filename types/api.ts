@@ -7,4 +7,5 @@ export type InformationNode = {
   bicycle_speed: number;
   latitude: number;
   longitude: number;
+  sync: boolean;
 };

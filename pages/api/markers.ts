@@ -39,7 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if (isDataValid(body)) {
           body.forEach((d) => {
             mysql.query(
-              'INSERT INTO markers (timestamp, distance, object_speed, bicycle_speed, latitude, longitude) VALUES(?, ?, ?, ?, ?, ?)',
+              'INSERT INTO markers (timestamp, distance, object_speed, bicycle_speed, latitude, longitude, sync) VALUES(?, ?, ?, ?, ?, ?, ?)',
               [
                 d.timestamp,
                 d.distance,
@@ -47,6 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 d.bicycle_speed,
                 d.latitude,
                 d.longitude,
+                0,
               ]
             );
           });
