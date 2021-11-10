@@ -6,13 +6,13 @@ type Props = {
   onAccept: () => void;
 };
 
-export default function UploadConfirmDialog(props: Props) {
+export default function DeleteConfirmDialog(props: Props) {
   return (
     <ConfirmDialog
       {...props}
-      title={'Confirm Upload'}
+      title={'Confirm Deletion'}
       content={
-        'Are you sure you want to publish your reports? These will be publicly visible.'
+        'Are you sure you want to remove this report. This action cannot be undone.'
       }
     />
   );

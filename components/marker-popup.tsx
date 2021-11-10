@@ -1,19 +1,38 @@
 import { Popup, PopupProps } from 'react-leaflet';
-import { InformationNode } from '../types/api';
+import { InformationNode, LocalInformationNode } from '../types/api';
 import { Button } from '@mui/material';
-import Links from '../constants/links';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
-type Props = PopupProps & {
-  item: InformationNode;
-  local?: boolean;
-};
+type Props = PopupProps &
+  (
+    | {
+        item: InformationNode;
+        local: false;
+      }
+    | {
+        item: LocalInformationNode;
+        onPressDelete: () => void;
+        local: true;
+      }
+  );
 
 export default function MarkerPopup(props: Props) {
-  const { item, local } = props;
+  const { item } = props;
+  const getSyncMessage = () => {
+    if (props.local) {
+      if (props.item.sync) {
+        return <p>SYNC</p>;
+      } else {
+        return <p>NOT SYNC</p>;
+      }
+    } else {
+      return null;
+    }
+  };
+
   return (
     <Popup>
-      {local ? <p>LOCAL</p> : undefined}
-      {local ? item.sync ? <p>SYNC</p> : <p>NOT IN SYNC</p> : undefined}
+      {getSyncMessage()}
       <p>
         <strong>Date:</strong> {item.timestamp}
       </p>
@@ -26,22 +45,14 @@ export default function MarkerPopup(props: Props) {
       <p>
         <strong>Bike speed:</strong> {item.bicycle_speed}
       </p>
-      {local ? (
+      {props.local && !props.item.sync ? (
         <Button
-          size="small"
-          variant="outlined"
-          color="error"
-          onClick={async () => {
-            const response = await fetch('/api/markers', {
-              method: 'DELETE',
-              headers: { 'Content-Type': 'application/json' },
-              body: '[' + item.id + ']',
-            });
-            if (!response.ok) {
-              console.log('Could not delete marker: ' + JSON.stringify(item));
-            }
-          }}
+          size={'small'}
+          variant={'outlined'}
+          color={'error'}
+          onClick={props.onPressDelete}
         >
+          <DeleteIcon sx={{ mr: 1 }} />
           Supprimer
         </Button>
       ) : undefined}

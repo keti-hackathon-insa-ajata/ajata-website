@@ -25,6 +25,7 @@ const orangeIcon = new L.Icon({
 
 type Props = {
   item: LocalInformationNode;
+  onPressDelete: () => void;
   key?: string;
 };
 
@@ -36,7 +37,11 @@ export function LocalMarker(props: Props) {
       position={[item.latitude, item.longitude]}
       icon={item.sync ? orangeIcon : blueIcon}
     >
-      <MarkerPopup item={item} local={true} />
+      <MarkerPopup
+        item={item}
+        local={true}
+        onPressDelete={props.onPressDelete}
+      />
     </Marker>
   );
 }

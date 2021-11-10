@@ -1,6 +1,10 @@
 import { MapContainer, TileLayer, MapContainerProps } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { DangerReports, LocalDangerReports } from '../types/api';
+import {
+  DangerReports,
+  LocalDangerReports,
+  LocalInformationNode,
+} from '../types/api';
 import { LiveMarker } from './live-marker';
 import { LocalMarker } from './local-marker';
 import { Fab } from '@mui/material';
@@ -12,6 +16,8 @@ import { publishToOM2M } from '../util/requests';
 import L from 'leaflet';
 import UploadConfirmDialog from './upload-confirm-dialog';
 import { useState } from 'react';
+import DeleteConfirmDialog from './delete-confirm-dialog';
+import Links from '../constants/links';
 L.Icon.Default.imagePath = 'leaflet_images/';
 
 type Props = MapContainerProps &
@@ -33,6 +39,9 @@ type Props = MapContainerProps &
  */
 export default function Map(props: Props) {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [markerToDelete, setMarkerToDelete] = useState<
+    undefined | LocalInformationNode
+  >(undefined);
 
   return (
     <MapContainer
@@ -47,7 +56,11 @@ export default function Map(props: Props) {
       />
       {props.markers && props.local
         ? props.markers.map((item, index) => (
-            <LocalMarker key={'localMarker' + index} item={item} />
+            <LocalMarker
+              key={'localMarker' + index}
+              item={item}
+              onPressDelete={() => setMarkerToDelete(item)}
+            />
           ))
         : null}
       {props.local ? (
@@ -58,6 +71,26 @@ export default function Map(props: Props) {
             onAccept={() => {
               setDialogOpen(false);
               publishToOM2M(props.markers, (e) => console.log(e));
+            }}
+          />
+          <DeleteConfirmDialog
+            open={markerToDelete != undefined}
+            onClose={() => setMarkerToDelete(undefined)}
+            onAccept={() => {
+              fetch(Links.localMarkers, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: '[' + markerToDelete.id + ']',
+              }).then((response) => {
+                if (!response.ok) {
+                  console.log(
+                    'Could not delete marker: ' + JSON.stringify(markerToDelete)
+                  );
+                } else {
+                  console.log('marked deleted !');
+                }
+                setMarkerToDelete(undefined);
+              });
             }}
           />
           <Fab
