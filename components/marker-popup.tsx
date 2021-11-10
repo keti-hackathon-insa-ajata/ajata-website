@@ -63,7 +63,7 @@ export default function MarkerPopup(props: Props) {
           }}
         >
           <DeleteIcon sx={{ mr: 1 }} />
-          Supprimer
+          Delete
         </Button>
       ) : undefined}
     </Popup>
