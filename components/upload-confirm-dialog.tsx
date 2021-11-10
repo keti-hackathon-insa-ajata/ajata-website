@@ -1,4 +1,5 @@
 import ConfirmDialog from './confirm-dialog';
+import UploadButton from '@mui/icons-material/Upload';
 
 type Props = {
   open: boolean;
@@ -14,6 +15,17 @@ export default function UploadConfirmDialog(props: Props) {
       content={
         'Are you sure you want to publish your reports? These will be publicly visible.'
       }
+      icon={<UploadButton sx={{ mr: 1 }} />}
+      buttons={{
+        accept: {
+          color: 'success',
+          text: 'Yes !',
+        },
+        cancel: {
+          color: 'primary',
+          text: 'Cancel',
+        },
+      }}
     />
   );
 }

@@ -1,4 +1,5 @@
 import ConfirmDialog from './confirm-dialog';
+import DeleteButton from '@mui/icons-material/DeleteOutline';
 
 type Props = {
   open: boolean;
@@ -14,6 +15,17 @@ export default function DeleteConfirmDialog(props: Props) {
       content={
         'Are you sure you want to remove this report. This action cannot be undone.'
       }
+      icon={<DeleteButton sx={{ mr: 1 }} />}
+      buttons={{
+        accept: {
+          color: 'error',
+          text: 'Delete',
+        },
+        cancel: {
+          color: 'success',
+          text: 'Cancel',
+        },
+      }}
     />
   );
 }
