@@ -95,11 +95,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case 'PATCH':
       if (isLocalDataValid(body)) {
         body.forEach(async (d) => {
-          const result = await mysql.query(
-            'UPDATE markers SET sync = ? WHERE id = ?',
-            [d.sync, d.id]
-          );
-          console.log(result);
+          await mysql.query('UPDATE markers SET sync = ? WHERE id = ?', [
+            d.sync,
+            d.id,
+          ]);
         });
         res.status(200).end('success');
       } else {
