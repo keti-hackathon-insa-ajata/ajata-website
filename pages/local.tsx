@@ -4,11 +4,14 @@ import styles from '../styles/Home.module.css';
 import Map from '../components/dynamic-map';
 import { fetcher } from '../util/requests';
 import Links from '../constants/links';
+import { useState } from 'react';
 
 export default function Home() {
-  const { data, error, mutate } = useSWR(Links.localMarkers, fetcher, {
+  const { data, error } = useSWR(Links.localMarkers, fetcher, {
     refreshInterval: 10000,
   });
+  // mutate from useSWR does not seem to work
+  const [extraData, setExtraData] = useState(0);
   console.log(data);
   console.log(error);
 
@@ -25,7 +28,7 @@ export default function Home() {
       <Map
         markers={data}
         mutate={() => {
-          mutate();
+          setExtraData(extraData + 1);
         }}
         local={true}
         style={{
