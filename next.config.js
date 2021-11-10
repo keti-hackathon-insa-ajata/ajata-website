@@ -5,7 +5,7 @@ module.exports = {
     return [
       {
         source: '/api/om2m/:path*',
-        destination: 'http://localhost:8282/:path*',
+        destination: 'http://192.168.43.139:8282/:path*',
       },
     ];
   },

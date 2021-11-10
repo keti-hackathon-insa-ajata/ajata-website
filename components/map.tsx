@@ -77,7 +77,10 @@ export default function Map(props: Props) {
                   setDialogOpen(false);
                   props.mutate();
                 })
-                .catch((e) => console.log(e));
+                .catch((e) => {
+                  setDialogOpen(false);
+                  console.log(e);
+                });
             }}
           />
           <DeleteConfirmDialog
