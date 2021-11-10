@@ -18,7 +18,6 @@ import UploadConfirmDialog from './upload-confirm-dialog';
 import { useState } from 'react';
 import DeleteConfirmDialog from './delete-confirm-dialog';
 import Links from '../constants/links';
-import { KeyedMutator } from 'swr';
 L.Icon.Default.imagePath = 'leaflet_images/';
 
 type Props = MapContainerProps &
@@ -29,7 +28,7 @@ type Props = MapContainerProps &
       }
     | {
         markers?: LocalDangerReports;
-        mutate: KeyedMutator<any>;
+        mutate: () => void;
         local: true;
       }
   );
@@ -73,8 +72,12 @@ export default function Map(props: Props) {
             open={dialogOpen}
             onClose={() => setDialogOpen(false)}
             onAccept={() => {
-              setDialogOpen(false);
-              publishToOM2M(props.markers, (e) => console.log(e));
+              publishToOM2M(props.markers)
+                .then(() => {
+                  setDialogOpen(false);
+                  props.mutate();
+                })
+                .catch((e) => console.log(e));
             }}
           />
           <DeleteConfirmDialog

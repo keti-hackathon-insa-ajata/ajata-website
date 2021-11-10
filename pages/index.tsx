@@ -6,7 +6,9 @@ import { fetcher } from '../util/requests';
 import Links from '../constants/links';
 
 export default function Home() {
-  const { data, error } = useSWR(Links.liveReports, fetcher);
+  const { data, error } = useSWR(Links.liveReports, fetcher, {
+    refreshInterval: 10000,
+  });
   console.log(data);
   console.log(error);
 
