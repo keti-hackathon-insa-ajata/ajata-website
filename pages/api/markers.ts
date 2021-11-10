@@ -1,24 +1,45 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../constants/db';
-import { DangerReports } from '../../types/api';
+import {
+  DangerReports,
+  InformationNode,
+  LocalDangerReports,
+  LocalInformationNode,
+} from '../../types/api';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mysql = require('serverless-mysql')({
   config: db,
 });
 
+function isMarkerValid(data: unknown): data is InformationNode {
+  const typedData = data as InformationNode;
+  return (
+    typedData.timestamp != undefined &&
+    typedData.object_speed != undefined &&
+    typedData.longitude != undefined &&
+    typedData.latitude != undefined &&
+    typedData.bicycle_speed != undefined &&
+    typedData.distance != undefined
+  );
+}
+
+function isLocalMarkerValid(data: unknown): data is LocalInformationNode {
+  return (
+    isMarkerValid(data) &&
+    (data as LocalInformationNode).id !== undefined &&
+    (data as LocalInformationNode).sync !== undefined
+  );
+}
+
 function isDataValid(data: unknown): data is DangerReports {
+  return Array.isArray(data) && (data as DangerReports).every(isMarkerValid);
+}
+
+function isLocalDataValid(data: unknown): data is LocalDangerReports {
   return (
     Array.isArray(data) &&
-    (data as DangerReports).every(
-      (i) =>
-        i.timestamp != undefined &&
-        i.object_speed != undefined &&
-        i.longitude != undefined &&
-        i.latitude != undefined &&
-        i.bicycle_speed != undefined &&
-        i.distance != undefined
-    )
+    (data as LocalDangerReports).every(isLocalMarkerValid)
   );
 }
 
@@ -65,6 +86,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       if (isDeleteDataValid(body)) {
         body.forEach((id) => {
           mysql.query('DELETE FROM markers WHERE id = ?', [id]);
+        });
+        res.status(200).end('success');
+      } else {
+        res.status(400).end('Data provided invalid');
+      }
+      break;
+    case 'PATCH':
+      if (isLocalDataValid(body)) {
+        body.forEach(async (d) => {
+          const result = await mysql.query(
+            'UPDATE markers SET sync = ? WHERE id = ?',
+            [d.sync, d.id]
+          );
+          console.log(result);
         });
         res.status(200).end('success');
       } else {
