@@ -6,7 +6,7 @@ import { fetcher } from '../util/requests';
 import Links from '../constants/links';
 
 export default function Home() {
-  const { data, error } = useSWR(Links.localMarkers, fetcher);
+  const { data, error, mutate } = useSWR(Links.localMarkers, fetcher);
   console.log(data);
   console.log(error);
 
@@ -22,6 +22,7 @@ export default function Home() {
       </Head>
       <Map
         markers={data}
+        mutate={mutate}
         local={true}
         style={{
           height: '100%',

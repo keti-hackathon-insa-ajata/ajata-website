@@ -2,6 +2,7 @@ import { Popup, PopupProps } from 'react-leaflet';
 import { InformationNode, LocalInformationNode } from '../types/api';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import { useRef } from 'react';
 
 type Props = PopupProps &
   (
@@ -30,8 +31,10 @@ export default function MarkerPopup(props: Props) {
     }
   };
 
+  const ref = useRef();
+
   return (
-    <Popup>
+    <Popup ref={ref}>
       {getSyncMessage()}
       <p>
         <strong>Date:</strong> {item.timestamp}
@@ -50,7 +53,14 @@ export default function MarkerPopup(props: Props) {
           size={'small'}
           variant={'outlined'}
           color={'error'}
-          onClick={props.onPressDelete}
+          onClick={() => {
+            if (ref.current) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //@ts-ignore
+              ref.current._close();
+            }
+            props.onPressDelete();
+          }}
         >
           <DeleteIcon sx={{ mr: 1 }} />
           Supprimer

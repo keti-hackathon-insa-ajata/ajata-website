@@ -18,6 +18,7 @@ import UploadConfirmDialog from './upload-confirm-dialog';
 import { useState } from 'react';
 import DeleteConfirmDialog from './delete-confirm-dialog';
 import Links from '../constants/links';
+import { KeyedMutator } from 'swr';
 L.Icon.Default.imagePath = 'leaflet_images/';
 
 type Props = MapContainerProps &
@@ -28,6 +29,7 @@ type Props = MapContainerProps &
       }
     | {
         markers?: LocalDangerReports;
+        mutate: KeyedMutator<any>;
         local: true;
       }
   );
@@ -59,7 +61,9 @@ export default function Map(props: Props) {
             <LocalMarker
               key={'localMarker' + index}
               item={item}
-              onPressDelete={() => setMarkerToDelete(item)}
+              onPressDelete={() => {
+                setMarkerToDelete(item);
+              }}
             />
           ))
         : null}
@@ -90,6 +94,7 @@ export default function Map(props: Props) {
                   console.log('marked deleted !');
                 }
                 setMarkerToDelete(undefined);
+                props.mutate();
               });
             }}
           />
