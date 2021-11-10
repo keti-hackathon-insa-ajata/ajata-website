@@ -9,4 +9,7 @@ module.exports = {
       },
     ];
   },
+  env: {
+    om2mMnCseName: 'mn-cse-raspi/mn-raspi',
+  },
 };
