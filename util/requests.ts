@@ -26,8 +26,10 @@ export const publishToOM2M = async (data: undefined | LocalDangerReports) => {
               },
               body: body,
             }).then((response) => {
-              if (response.ok) {
-                reject('Could not sync marker: ' + JSON.stringify(marker));
+              if (!response.ok) {
+                reject(
+                  'Could not send marker to OM2M: ' + JSON.stringify(marker)
+                );
               } else {
                 syncMarker(marker).then((response) => {
                   if (!response.ok) {
@@ -50,6 +52,7 @@ export const publishToOM2M = async (data: undefined | LocalDangerReports) => {
 };
 
 function syncMarker(marker: LocalInformationNode) {
+  console.log('test2');
   return fetch(Links.localMarkers, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
