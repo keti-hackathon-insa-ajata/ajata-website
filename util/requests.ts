@@ -52,7 +52,6 @@ export const publishToOM2M = async (data: undefined | LocalDangerReports) => {
 };
 
 function syncMarker(marker: LocalInformationNode) {
-  console.log('test2');
   return fetch(Links.localMarkers, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
