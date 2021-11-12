@@ -85,23 +85,23 @@ module.exports = {
 
 ## API : /api/markers
   * The local REST Api is accessible at : http://localhost:3000/api/markers (on the Raspberry Pi, or replace "localhost" with the IP address of the Raspberry Pi)
-  * GET requests are used to retrieve the data
-  * POST requests are used to create new markers (JSON Array)
-  * PATCH requests are used to modify the field 'sync' of the given marker (by id)
-  * DELETE requests are used to delete the given markers (array of int)
+  * GET requests are used to retrieve the local data
+  * POST requests are used to create new local markers (JSON Array)
+  * PATCH requests are used to modify the field 'sync' of the given local marker (by id)
+  * DELETE requests are used to delete the given local markers (array of int)
 
 ## JSON format for POST requests
 Example
 ```json
 [{
-    "timestamp": 1635497504,
+    "date": "2021-11-12T16:27:22.000Z",
     "distance": 300.0,
     "object_speed": 60.0,
     "bicycle_speed": 7.0,
     "latitude": 43.57037533253987,
     "longitude": 1.468026024931181
 },{
-    "timestamp": 1635497700,
+    "date": "2021-11-11T15:17:05.000Z",
     "distance": 80.0,
     "object_speed": 30.0,
     "bicycle_speed": 5.0,
@@ -109,6 +109,11 @@ Example
     "longitude": 1.4781496777222487
 }]
 ```
+  * date : date when the danger report occured (in ISO format),
+  * distance : distance between the detected object/vehicle and the user's bike (in cm),
+  * object_speed : speed of the detected object/vehicle (in km/h),
+  * bicycle_speed : speed of the user's bicycle (in km/h),
+  * latitude and longitude : coordinates where the danger report occured
 
 ## Learn More
 
