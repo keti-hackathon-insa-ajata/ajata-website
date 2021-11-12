@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import db from '../../constants/db';
 import {
-  DangerReports,
+  EspDangerReports,
+  EspData,
   InformationNode,
   LocalDangerReports,
   LocalInformationNode,
@@ -24,6 +25,11 @@ function isMarkerValid(data: unknown): data is InformationNode {
   );
 }
 
+function isEspMarkerValid(data: unknown): data is EspData {
+  const typedData = data as EspData;
+  return isMarkerValid(data) && typedData.date != undefined;
+}
+
 function isLocalMarkerValid(data: unknown): data is LocalInformationNode {
   return (
     isMarkerValid(data) &&
@@ -32,8 +38,10 @@ function isLocalMarkerValid(data: unknown): data is LocalInformationNode {
   );
 }
 
-function isDataValid(data: unknown): data is DangerReports {
-  return Array.isArray(data) && (data as DangerReports).every(isMarkerValid);
+function isEspDataValid(data: unknown): data is EspDangerReports {
+  return (
+    Array.isArray(data) && (data as EspDangerReports).every(isEspMarkerValid)
+  );
 }
 
 function isLocalDataValid(data: unknown): data is LocalDangerReports {
@@ -57,12 +65,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       if (!body) {
         res.status(400).end('No data provided');
       } else {
-        if (isDataValid(body)) {
+        if (isEspDataValid(body)) {
           body.forEach((d) => {
+            // Get timestamp from request
+            const date = new Date(d.date);
+            const timestamp = date.getTime() / 1000;
             mysql.query(
               'INSERT INTO markers (timestamp, distance, object_speed, bicycle_speed, latitude, longitude, sync) VALUES(?, ?, ?, ?, ?, ?, ?)',
               [
-                d.timestamp,
+                timestamp,
                 d.distance,
                 d.object_speed,
                 d.bicycle_speed,
