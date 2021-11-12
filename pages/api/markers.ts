@@ -27,7 +27,14 @@ function isMarkerValid(data: unknown): data is InformationNode {
 
 function isEspMarkerValid(data: unknown): data is EspData {
   const typedData = data as EspData;
-  return isMarkerValid(data) && typedData.date != undefined;
+  return (
+    typedData.object_speed != undefined &&
+    typedData.longitude != undefined &&
+    typedData.latitude != undefined &&
+    typedData.bicycle_speed != undefined &&
+    typedData.distance != undefined &&
+    typedData.date != undefined
+  );
 }
 
 function isLocalMarkerValid(data: unknown): data is LocalInformationNode {
