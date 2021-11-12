@@ -1,6 +1,10 @@
 export default {
-  liveReports: 'http://192.168.43.171:12345/dangerReports?dangerous=true', // '/api/mock',
+  liveReports: process.env.restApiEndpoint, // '/api/mock',
   localMarkers: '/api/markers',
   om2mEndpoint:
-    '/api/om2m/~/' + process.env.om2mMnCseName + '/AjataSensor/DATA',
+    '/api/om2m/~/' +
+    process.env.om2mMnCseName +
+    '/' +
+    process.env.om2mAE +
+    '/DATA',
 };
