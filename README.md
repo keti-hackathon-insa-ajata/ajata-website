@@ -1,6 +1,6 @@
 # Ajata Website
 
-Local website where the user can look at the "global" map which uses data from the central server where only the dangerous uploaded reports will be displayed. The user can also see and manage his/her local map with his/her markers. He/she can choose to delete some markers before sending them to central server (publicly visible) via the "Upload Reports" button
+Local website running on the Raspberry Pi where the user can look at the "global" map which uses data from the central server where only the dangerous uploaded reports will be displayed. The user can also see and manage his/her local map with his/her markers. He/she can choose to delete some markers before sending them to central server (publicly visible) via the "Upload Reports" button. This website is the link between the Hardware part (microcontroller ESP8266) and OM2M.
 
 ## Prerequisites
   * Git
