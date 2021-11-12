@@ -1,11 +1,19 @@
 # Ajata Website
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Local website where the user can look at the "global" map which uses data from the central server where only the dangerous uploaded reports will be displayed. The user can also see and manage his/her local map with his/her markers. He/she can choose to delete some markers before sending them to central server (publicly visible) via the "Upload Reports" button
 
 ## Prerequisites
+  * Git
   * nodejs
   * npm
   * MySQL
+
+## Git
+
+To retrieve the project, run :
+```
+git clone https://github.com/keti-hackathon-insa-ajata/ajata-website.git
+```
 
 ## Getting Started
 
@@ -103,6 +111,8 @@ Example
 ```
 
 ## Learn More
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 To learn more about technologies used in the project, take a look at the following resources:
 
